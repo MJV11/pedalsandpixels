@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+canvas, body {
+  background-color: rgb(37, 42, 45);
+}
+
+canvas {
+  position:absolute;
+}
