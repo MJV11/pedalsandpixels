@@ -60,7 +60,7 @@ const Component = ({ imageUrl = '/image.png', apiKey = '5ce99ffjwrch65awctwoyxik
     };
 
     fetchPowerCurve();
-  }, [apiKey, athleteId]);
+  }, [apiKey, athleteId, timePoints]);
 
   useEffect(() => {
     if (!mountRef.current) return;
