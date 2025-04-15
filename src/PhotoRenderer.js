@@ -169,16 +169,14 @@ class PhotoRenderer {
         }
         const textureLoader = new THREE.TextureLoader();
         
-        // Load image
         textureLoader.load(
-            // URL of the image - ensure this path is correct
             file, 
             (texture) => {
                 this.texture = texture;
                 this.texture.minFilter = THREE.LinearFilter;
                 this.texture.magFilter = THREE.LinearFilter;
                 this.texture.format = THREE.RGBAFormat;
-                this.texture.generateMipmaps = false; // Disable mipmap generation
+                this.texture.generateMipmaps = false; 
 
                 if (texture.image) {
                     this.width = texture.image.width;
@@ -186,7 +184,7 @@ class PhotoRenderer {
                     if (this.width <= 0 || this.height <= 0) {
                         console.error("Invalid texture dimensions:", this.width, this.height);
                         return;
-                    } else console.log("Texture dimensions:", this.width, this.height);
+                    } 
 
                     this.initScene();
                     this.initPoints(skip, step, threshold);
@@ -264,7 +262,6 @@ class PhotoRenderer {
             
             if (brightness > threshold) numVisible++;
         }
-        console.log(numVisible);
 
         const uniforms = {
             uTime: { value: 0 },
@@ -301,8 +298,6 @@ class PhotoRenderer {
             1.0, 1.0
             ]), 2);
         geometry.setAttribute('uv', uvs);
-
-		// index
 		geometry.setIndex(new THREE.BufferAttribute(new Uint16Array([ 0, 2, 1, 2, 3, 1 ]), 1));
 
 		const indices = new Uint16Array(numVisible);
@@ -326,9 +321,6 @@ class PhotoRenderer {
             angles[j] = Math.random() * Math.PI;
             j++;
         }
-
-            
-        // Add instance attributes to geometry
         geometry.setAttribute('offset', new THREE.InstancedBufferAttribute(offsets, 3));
         geometry.setAttribute('pindex', new THREE.InstancedBufferAttribute(indices, 1));
         geometry.setAttribute('angle', new THREE.InstancedBufferAttribute(angles, 1));
@@ -354,13 +346,10 @@ class PhotoRenderer {
         }
 	};
     
-    /// Handle mouse movement for raycasting
     handleMouseMove = (e) => {
-        // Calculate normalized device coordinates (-1 to +1)
         this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
         this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
         
-        // Update touch texture with mouse position
         if (this.touch && this.hitArea && this.camera) {
             this.raycaster.setFromCamera(this.mouse, this.camera);
             const intersects = this.raycaster.intersectObject(this.hitArea);
@@ -424,21 +413,17 @@ class PhotoRenderer {
 
             this.animation = requestAnimationFrame(this.animate);
                         
-            // Update uniforms safely
             if (this.object3D && this.object3D.material && this.object3D.material.uniforms) {
                 this.object3D.material.uniforms.uTime.value += this.clock.getDelta();
             } else {
                 console.log("animate(): no this.object3D")
             }
-            
-            // Update touch texture
             if (this.touch && typeof this.touch.update === 'function') {
                 this.touch.update();
             } else {
                 console.log("animate(): no this.touch")
             }
             
-            // Render scene
             if (this.renderer && this.scene && this.camera) {
                 this.renderer.render(this.scene, this.camera);
             } else {
@@ -450,9 +435,7 @@ class PhotoRenderer {
             }
         };
     
-    dispose() {
-        console.log("dispose()ing")
-        
+    dispose() {        
         if (this.animation) {
             cancelAnimationFrame(this.animation);
         }

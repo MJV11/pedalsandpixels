@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 
-// Easing function for the touch effect
 function easeOutSine(time, base, amplitude, period) {
     return amplitude * Math.sin(time / period * (Math.PI / 2)) + base;
 }
@@ -32,11 +31,6 @@ export default class TouchTexture {
 
         this.canvas.id = 'touchTexture';
         
-        this.initTouch();
-    }
-  
-    initTouch() {
-        // Add initial touch point in the center with zero strength
         this.addTouch(0.5, 0.5);
     }
     
@@ -45,7 +39,7 @@ export default class TouchTexture {
             console.warn("TouchTexture: AddTouch(): invalid x y", x, y);
             return;
         }
-        let force = 0; // Default force for raycasting
+        let force = 0; 
         const last = this.trail[this.trail.length - 1];
         
         if (last) {
@@ -65,17 +59,13 @@ export default class TouchTexture {
         }
         this.clear();
         
-        // Age points
         this.trail.forEach((point, i) => {
             point.age++;
-        
-            // Remove old
             if (point.age > this.maxAge) {
                 this.trail.splice(i, 1);
             }
         });
             
-            // Draw trail
         this.trail.forEach(point => {
             this.drawTouch(point);
         });
@@ -113,10 +103,10 @@ export default class TouchTexture {
         } else {
             intensity = easeOutSine(1 - (point.age - this.maxAge * 0.3) / (this.maxAge * 0.7), 0, amplitude, 1) * point.force;
         }
-        // Ensure radius is a positive, finite number
+        // ensure radius is a positive, finite number
         const radius = Math.max(0.1, this.size * this.radius * Math.abs(intensity) || 0.1);
         
-        // Check if all values are valid before creating gradient
+        // check if all values are valid before creating gradient
         if (isFinite(pos.x) && isFinite(pos.y) && isFinite(radius)) {
             const grd = this.ctx.createRadialGradient(pos.x, pos.y, radius * 0.25, pos.x, pos.y, radius);
             grd.addColorStop(0, `rgba(255, 255, 255, 0.2)`);
