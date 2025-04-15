@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, ReferenceDot } from 'recharts';
 import PhotoRenderer from './PhotoRenderer';
+const timePoints = [1, 5, 10, 20, 30, 60, 120, 180, 300, 600, 1200, 1800, 3600];
 
 const Component = ({ imageUrl = '/image.png', apiKey = '5ce99ffjwrch65awctwoyxikp' }) => {
   const mountRef = useRef(null);
@@ -10,7 +11,6 @@ const Component = ({ imageUrl = '/image.png', apiKey = '5ce99ffjwrch65awctwoyxik
   const [powerCurveData, setPowerCurveData] = useState([]);
   const [isLoadingData, setIsLoadingData] = useState(false);
   const athleteId = 'i178902'; // athlete ID
-  const timePoints = [1, 5, 10, 20, 30, 60, 120, 180, 300, 600, 1200, 1800, 3600];
 
   // Fetch power curve data from intervals.icu API
   useEffect(() => {
@@ -60,7 +60,7 @@ const Component = ({ imageUrl = '/image.png', apiKey = '5ce99ffjwrch65awctwoyxik
     };
 
     fetchPowerCurve();
-  }, [apiKey, athleteId, timePoints]);
+  }, [apiKey, athleteId]);
 
   useEffect(() => {
     if (!mountRef.current) return;
