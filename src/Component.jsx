@@ -133,12 +133,16 @@ const Component = ({ imageUrl = '/image.png', apiKey = '5ce99ffjwrch65awctwoyxik
       <div ref={mountRef} style={{ width: '100%', height: '100%' }}>
         {!textureLoaded && (
           <div style={{
+            height: "100vh",
+            width: "100vw",
             position: 'absolute',
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
             color: 'white',
-            fontSize: '24px'
+            fontSize: '24px',
+            backgroundColor: "white",
+            zIndex: "100",
           }}>
             Loading image...
           </div>
@@ -165,7 +169,7 @@ const Component = ({ imageUrl = '/image.png', apiKey = '5ce99ffjwrch65awctwoyxik
             fontSize: '24px',
             textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)'
           }}>
-            Loading power data...
+            
           </div>
         ) : error ? (
           <div style={{
@@ -206,7 +210,7 @@ const Component = ({ imageUrl = '/image.png', apiKey = '5ce99ffjwrch65awctwoyxik
                   strokeWidth={3}
                   dot={false}
                   activeDot={{ r: 6 }}
-                  animationDuration={1000}
+                  animationDuration={4000}
                 />
 
                 {/* Reference dots for specific time points */}
@@ -225,21 +229,6 @@ const Component = ({ imageUrl = '/image.png', apiKey = '5ce99ffjwrch65awctwoyxik
             </ResponsiveContainer>
         ) : null}
       </div>
-
-      {/* Loading overlay for PhotoRenderer */}
-      {!textureLoaded && (
-        <div style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          color: 'white',
-          fontSize: '24px',
-          zIndex: 5
-        }}>
-          Loading image...
-        </div>
-      )}
 
     </div>
   );
