@@ -127,6 +127,10 @@ const Component = ({ imageUrl = '/image.png', apiKey = '5ce99ffjwrch65awctwoyxik
     return `${hours}h`;
   };
 
+  const formatWatts = (watts) => {
+    return `${watts}w`;
+  };
+
 
   return (
     <div style={{ position: 'relative', width: '100vw', height: '75vh' }}>
@@ -196,11 +200,14 @@ const Component = ({ imageUrl = '/image.png', apiKey = '5ce99ffjwrch65awctwoyxik
                   domain={['auto', 'auto']}
                   label={{ value: 'Duration', position: 'insideBottom', fill: 'white', dy: 20 }}
                   ticks={timePoints}
+                  axisLine={false}
                 />
                 <YAxis
                   tick={{ fill: 'white' }}
+                  tickFormatter={formatWatts}
                   label={{ value: 'Power (watts)', angle: -90, position: 'insideLeft', fill: 'white', dx: -20 }}
                   domain={['auto', 'auto']}
+                  axisLine={false}
                 />
                 <Line
                   type="monotone"
